@@ -4,10 +4,10 @@
 	</head>
 	<body>
 		<h2>SimpleTest</h2>
-		<p><a href="/test/all">Run All</a></p>
+		<p><?php echo html::anchor( route::url( 'simpletest', array( 'action' => 'all' ) ), 'Run All' ); ?></p>
 		<ul>
 		<?php foreach( $suites as $name => $tests ): ?>
-			<li><a href="/test/run/<?php echo html::chars( $name ); ?>"><?php echo html::chars( $name ); ?></a></li>
+			<li><?php echo html::anchor( route::url( 'simpletest', array( 'action' => 'run', 'id' => $name ) ), html::chars( $name ) ); ?></li>
 		<?php endforeach; ?>
 		</ul>
 	</body>
