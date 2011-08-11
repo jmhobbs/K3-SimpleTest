@@ -25,7 +25,7 @@
 		public function paintGroupEnd ( $test_name ) {
 			$name = array_pop( $this->depth );
 			$depth = count( $this->depth );
-			$this->groups[$name]->depth = $depth;
+			$this->groups[$name]->close( $depth );
 			if( $depth == 0 ) {
 				$this->group_index = null;
 			}
@@ -48,8 +48,7 @@
 
 		public function paintFail ( $message ) {
 			parent::paintFail( $message );
-			$this->groups[$this->group_index]->addTest( new SimpleTest_Test_Fail( $message, $this->getTestList() ) );
-		
+			$this->groups[$this->group_index]->addTest( new SimpleTest_Test_Fail( $message, $this->getTestList() ) );		
 		}
 
 		public function paintError ( $message ) {

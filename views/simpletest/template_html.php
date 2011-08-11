@@ -2,6 +2,7 @@
 	<head>
 		<title>SimpleTest // <?php echo $title; ?></title>
 		<style>
+			h1, h2 { border-bottom: 1px solid #222; }
 			.results {
 				border: 1px solid #444;
 				margin: 10px 5px;
@@ -33,6 +34,7 @@
 				border-left: 2px solid #444;
 				padding-left: 10px;
 			}
+			.time { float: right; }
 			.clear { clear: both; }
 			.message {
 				margin: 10px 0;
@@ -50,7 +52,18 @@
 				background: #FAA;
 			}
 			.results > div {
-				padding: 3px 5px; 
+				padding: 3px 5px;
+				background: transparent;
+			}
+			.footer {
+				color: #DDD;
+				text-align: right;
+			}
+			.footer a {
+				color: #DDD;
+			}
+			.footer a:hover {
+				color: #999;
 			}
 			pre {
 				background: #EEE;
