@@ -2,7 +2,7 @@
 
 Route::set( 'simpletest', '/test(/<action>(/<id>))' )
 	->defaults( array(
-		'controller' => 'test',
+		'controller' => 'simpletest',
 		'action'     => 'index',
 	) );
 
