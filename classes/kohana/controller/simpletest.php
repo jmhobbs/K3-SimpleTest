@@ -14,7 +14,8 @@
 
 		public function action_index () {
 			$suites = Kohana::config( 'simpletest' )->as_array();
-			$this->response->body( View::factory( 'simpletest/index' )->set( 'suites', $suites ) );
+			$this->template->title = "Choose Test";
+			$this->template->content = View::factory( 'simpletest/index' )->set( 'suites', $suites );
 		}
 
 		public function action_all () {
