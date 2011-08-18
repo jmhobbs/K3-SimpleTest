@@ -1,4 +1,4 @@
-<?php echo $indent; ?>EXCEPTION // <?php echo $test->testList[0]; ?> : <?php echo $test->testList[1]; ?>
+<?php echo $indent; ?>EXCEPTION // <?php echo Arr::get( $test->testList, 0 ); ?> : <?php echo Arr::get( $test->testList, 1 ); ?>
 
 <?php echo $indent . '             Unexpected exception of type [' . get_class( $test->exception ) 
 . '] with message [' . $test->exception->getMessage() 

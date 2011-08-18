@@ -13,7 +13,7 @@
 		}
 
 		public function action_index () {
-			$suites = Kohana::config( 'simpletest' )->as_array();
+			$suites = Kohana::config( 'simpletest.tests' );
 			$this->template->title = "Choose Test";
 			$this->template->content = View::factory( 'simpletest/index' )->set( 'suites', $suites );
 		}
@@ -23,7 +23,7 @@
 
 			require_once Kohana::find_file( 'vendor', 'simpletest/unit_tester' );
 
-			$suites = Kohana::config( 'simpletest' )->as_array();
+			$suites = Kohana::config( 'simpletest.tests' );
 
 			if( PHP_SAPI == 'cli' ) {
 				$reporter = new SimpleTest_Reporter( 'simpletest/text' );
@@ -34,9 +34,7 @@
 
 			$test = new TestSuite( 'All Tests' );
 			foreach( $suites as $name => $tests ) {
-				foreach( $tests as $file ) {
-					$test->addFile( Kohana::find_file( 'tests', $file ) );
-				}
+				$this->addSuite( $tests, $test );
 			}
 			$test->run( $reporter );
 
@@ -48,7 +46,7 @@
 
 			require_once Kohana::find_file( 'vendor', 'simpletest/unit_tester' );
 
-			$suites = Kohana::config( 'simpletest' )->as_array();
+			$suites = Kohana::config( 'simpletest.tests' );
 
 			if( PHP_SAPI == 'cli' ) {
 				$reporter = new SimpleTest_Reporter( 'simpletest/text' );
@@ -58,12 +56,20 @@
 			}
 
 			$test = new TestSuite( $name );
-			foreach( $suites[$name] as $file ) {
-				$test->addFile( Kohana::find_file( 'tests', $file ) );
-			}
+			$this->addSuite( $suites[$name], $test );
 			$test->run( $reporter );
 
 			$this->template->content = $reporter->render();
+		}
+
+		protected function addSuite ( $tests, &$test ) {
+			foreach( $tests as $file ) {
+				$path = Kohana::find_file( 'tests', $file );
+				if( empty( $path ) ) {
+					throw new Kohana_Exception( 'Test file not found: ' . $file );
+				}
+				$test->addFile( $path );
+			}
 		}
 
 	}
